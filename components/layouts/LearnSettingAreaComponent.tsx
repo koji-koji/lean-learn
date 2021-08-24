@@ -1,3 +1,4 @@
+import { Button } from '@chakra-ui/react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -13,7 +14,8 @@ const LearnSettingAreaComponent: React.FC = () => {
     watch,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit = (data) => console.log(data)
+
+  const onSubmit = (data: unknown) => console.log(data)
 
   console.log(watch('example'))
 
@@ -27,6 +29,7 @@ const LearnSettingAreaComponent: React.FC = () => {
         {errors.exampleRequired && <span>This field is required</span>}
       </div>
       <input type="submit" />
+      <Button colorScheme="blue">Button</Button>
     </form>
   )
 }
