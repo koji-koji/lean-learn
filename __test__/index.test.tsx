@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import React from 'react'
-import Home from '.'
+import Home from '../pages'
 
 it('Should render hello text', () => {
   render(<Home />)
