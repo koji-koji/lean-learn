@@ -9,7 +9,8 @@ type Inputs = {
 
 const LearnSettingAreaComponent: React.FC = () => {
   return (
-    <section>
+    <section className="p-10 w-1/2">
+      <p>学習設定</p>
       <LearnSettingCardComponent />
     </section>
   )
