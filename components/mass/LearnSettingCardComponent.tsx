@@ -1,8 +1,9 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
 import { Box, Icon, Input } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import SeparateHr from '../parts/SeparateHr'
+import ScheduleInputPair from './ScheduleInputPair'
 
 type Inputs = {
   example: string
@@ -20,6 +21,12 @@ const LearnSettingCardComponent: React.FC = () => {
 
   console.log(watch('example'))
 
+  const [learnInfos, setLearnInfos] = useState<LearnInfo[]>([])
+
+  const addLearnInfo = () => {
+    setLearnInfos([...learnInfos, { name: '', message: '' }])
+  }
+
   return (
     <>
       <Box
@@ -32,14 +39,20 @@ const LearnSettingCardComponent: React.FC = () => {
         boxShadow="base"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
+          <p>項目１</p>
+          <SeparateHr />
           <ul className="space-y-5">
+            {learnInfos.map((learnInfo, i) => {
+              return <ScheduleInputPair key={i} learnInfo={learnInfo} />
+            })}
             <li>
-              {' '}
-              <p>項目１</p>
               <SeparateHr />
             </li>
             <li className="flex justify-end">
-              <button className="p-2 rounded-full bg-yellow-400">
+              <button
+                className="p-2 rounded-full bg-yellow-400"
+                onClick={addLearnInfo}
+              >
                 <AddIcon w={6} h={6} color={'white'} />
               </button>
             </li>
@@ -53,3 +66,8 @@ const LearnSettingCardComponent: React.FC = () => {
 }
 
 export default LearnSettingCardComponent
+
+export interface LearnInfo {
+  name: string
+  message: string
+}
