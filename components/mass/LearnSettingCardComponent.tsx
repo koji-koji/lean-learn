@@ -1,7 +1,7 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
 import { Box, Icon, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import SeparateHr from '../parts/SeparateHr'
 import ScheduleInputPair from './ScheduleInputPair'
 
@@ -11,12 +11,20 @@ type Inputs = {
 }
 
 const LearnSettingCardComponent: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>()
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm<Inputs>()
+  const { control, register, watch, handleSubmit } = useForm()
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      control, // control props comes from useForm (optional: if you are using FormContext)
+      name: 'test', // unique name for your Field Array
+      // keyName: "id", default to "id", you can change the key name
+    }
+  )
   const onSubmit = (data: unknown) => console.log(data)
 
   console.log(watch('example'))
@@ -43,7 +51,13 @@ const LearnSettingCardComponent: React.FC = () => {
           <SeparateHr />
           <ul className="space-y-5">
             {learnInfos.map((learnInfo, i) => {
-              return <ScheduleInputPair key={i} learnInfo={learnInfo} />
+              return (
+                <ScheduleInputPair
+                  key={i}
+                  learnInfo={learnInfo}
+                  register={register}
+                />
+              )
             })}
             <li>
               <SeparateHr />

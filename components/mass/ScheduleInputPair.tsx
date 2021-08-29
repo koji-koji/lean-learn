@@ -11,15 +11,16 @@ type Inputs = {
 
 interface Props {
   learnInfo: LearnInfo
+  register: any
 }
 
-const ScheduleInputPair: React.FC<Props> = ({ learnInfo }) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<LearnInfo>()
+const ScheduleInputPair: React.FC<Props> = ({ learnInfo, register }) => {
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm<LearnInfo>()
   const onSubmit = (data: unknown) => console.log(data)
 
   return (
