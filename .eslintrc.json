@@ -4,5 +4,9 @@
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "prefer-const": "error",
+    "max-statements": ["warn", 3, { "ignoreTopLevelFunctions": true }]
+  }
 }
