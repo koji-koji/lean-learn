@@ -8,13 +8,14 @@ import ScheduleInputPair, { ScheduleInput } from './ScheduleInputPair'
 export interface LearnInfo {
   firstName: string
   lastName: string
+  cccc: { notifyDate: string }[]
 }
 
 const SampleCardComponent: React.FC = () => {
   const { control, register, handleSubmit, getValues } =
     useForm<{ learnInfos: LearnInfo[] }>()
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'learnInfos',
     keyName: 'key', // デフォルトではidだが、keyに変更。
@@ -45,7 +46,12 @@ const SampleCardComponent: React.FC = () => {
           <ul className="space-y-5">
             {fields.map((field, index) => (
               <li key={field.key} className="flex space-x-5">
-                <ScheduleInputPair index={index} register={register} />
+                <ScheduleInputPair
+                  index={index}
+                  register={register}
+                  control={control}
+                  topRemove={remove}
+                />
               </li>
             ))}
             <li className="flex justify-end">
