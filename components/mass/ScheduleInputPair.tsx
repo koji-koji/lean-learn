@@ -1,5 +1,5 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
-import { Input } from '@chakra-ui/react'
+import { Button, Input } from '@chakra-ui/react'
 import React from 'react'
 import {
   Control,
@@ -37,68 +37,86 @@ const ScheduleInputPair: React.FC<Props> = ({
     keyName: 'key', // デフォルトではidだが、keyに変更。
   })
 
-  const addLearnInfoss = () => {
+  const addLearnInfos = () => {
     append({ notifyDate: '' })
   }
 
   return (
     <>
-      <div className="flex flex-col">
-        <div className="flex justify-between">
-          <Input
-            {...register(`learnInfos.${index}.firstName`)}
-            placeholder="苗字"
-            bg="white"
-          />
-          <Input
-            {...register(`learnInfos.${index}.lastName`)}
-            placeholder="名前"
-            bg="white"
-          />
-          <button
-            className="p-2 rounded-full bg-yellow-400"
-            onClick={() => topRemove(index)}
-          >
-            <MinusIcon w={6} h={6} color={'white'} />
-          </button>
-        </div>
-        <div>
-          <ul className="space-y-5">
-            {fields.map((field, i) => (
-              <li key={field.key} className="flex space-x-5">
-                <Input
-                  {...register(
-                    `learnInfos.${index}.notification.${i}.notificationText`
-                  )}
-                  placeholder="notification"
-                  bg="white"
-                />
-                <Input
-                  {...register(
-                    `learnInfos.${index}.notification.${i}.notifyDate`
-                  )}
-                  placeholder="notification"
-                  bg="white"
-                />
-                <p className="min-w-10">日後</p>
+      <div className="flex justify-between w-full">
+        <div className="flex flex-col w-full space-y-4">
+          <div>
+            <p>学習項目</p>
+            <Input
+              {...register(`learnInfos.${index}.firstName`)}
+              placeholder="学習項目"
+              bg="white"
+            />
+          </div>
+          <div>
+            <p>詳細</p>
+            <Input
+              {...register(`learnInfos.${index}.lastName`)}
+              placeholder="詳細"
+              bg="white"
+            />
+          </div>
+          <div>
+            <p>復習日</p>
+            <ul className="space-y-5 pb-10">
+              {fields.map((field, i) => (
+                <li key={field.key} className="flex space-x-5">
+                  <div className="w-28 flex">
+                    <Input
+                      {...register(
+                        `learnInfos.${index}.notification.${i}.notifyDate`
+                      )}
+                      placeholder="1"
+                      bg="white"
+                    />
+                    <p className="pl-2 pt-3 w-28">日後</p>
+                  </div>
+
+                  <Input
+                    {...register(
+                      `learnInfos.${index}.notification.${i}.notificationText`
+                    )}
+                    placeholder="復習コメント"
+                    bg="white"
+                  />
+
+                  <button
+                    className="p-2 rounded-full bg-yellow-400"
+                    onClick={() => remove(i)}
+                  >
+                    <MinusIcon w={6} h={6} color={'white'} />
+                  </button>
+                </li>
+              ))}
+              <li className="flex justify-end">
                 <button
                   className="p-2 rounded-full bg-yellow-400"
-                  onClick={() => remove(i)}
+                  onClick={addLearnInfos}
                 >
-                  <MinusIcon w={6} h={6} color={'white'} />
+                  <AddIcon w={6} h={6} color={'white'} />
                 </button>
               </li>
-            ))}
-            <li className="flex justify-end">
-              <button
-                className="p-2 rounded-full bg-yellow-400"
-                onClick={addLearnInfoss}
+            </ul>
+            <div className="flex justify-between space-x-4">
+              <Button
+                colorScheme="pink"
+                size="md"
+                onClick={() => topRemove(index)}
               >
-                <AddIcon w={6} h={6} color={'white'} />
-              </button>
-            </li>
-          </ul>
+                削除
+              </Button>
+              <Button colorScheme="teal" size="md">
+                保存
+              </Button>
+            </div>
+          </div>
         </div>
+        <div></div>
       </div>
     </>
   )

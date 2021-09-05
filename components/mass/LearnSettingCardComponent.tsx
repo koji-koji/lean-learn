@@ -1,5 +1,5 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
-import { Box, Icon, Input } from '@chakra-ui/react'
+import { Box, Button, Icon, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import SeparateHr from '../parts/SeparateHr'
@@ -11,7 +11,7 @@ export interface LearnInfo {
   notification: { notifyDate: string; notificationText: string }[]
 }
 
-const SampleCardComponent: React.FC = () => {
+const LearnSettingCardComponent: React.FC = () => {
   const { control, register, handleSubmit, getValues } =
     useForm<{ learnInfos: LearnInfo[] }>()
 
@@ -26,7 +26,11 @@ const SampleCardComponent: React.FC = () => {
   }
 
   const addLearnInfoss = () => {
-    append({ firstName: '', lastName: '' })
+    append({
+      firstName: '',
+      lastName: '',
+      notification: [{ notifyDate: '', notificationText: '' }],
+    })
   }
 
   return (
@@ -41,18 +45,21 @@ const SampleCardComponent: React.FC = () => {
         boxShadow="base"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <p>氏名</p>
+          <p>学習項目</p>
           <SeparateHr />
           <ul className="space-y-5">
             {fields.map((field, index) => (
-              <li key={field.key} className="flex space-x-5">
-                <ScheduleInputPair
-                  index={index}
-                  register={register}
-                  control={control}
-                  topRemove={remove}
-                />
-              </li>
+              <>
+                <li key={field.key} className="flex pt-8">
+                  <ScheduleInputPair
+                    index={index}
+                    register={register}
+                    control={control}
+                    topRemove={remove}
+                  />
+                </li>
+                <SeparateHr />
+              </>
             ))}
             <li className="flex justify-end">
               <button
@@ -63,10 +70,16 @@ const SampleCardComponent: React.FC = () => {
               </button>
             </li>
           </ul>
+          <SeparateHr />
+          <div className="text-right space-x-4">
+            <Button colorScheme="teal" size="md">
+              一括保存
+            </Button>
+          </div>
         </form>
       </Box>
     </>
   )
 }
 
-export default SampleCardComponent
+export default LearnSettingCardComponent
