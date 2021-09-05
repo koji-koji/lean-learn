@@ -33,7 +33,7 @@ const ScheduleInputPair: React.FC<Props> = ({
 }) => {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: `learnInfos.${index}.cccc`,
+    name: `learnInfos.${index}.notification`,
     keyName: 'key', // デフォルトではidだが、keyに変更。
   })
 
@@ -67,13 +67,23 @@ const ScheduleInputPair: React.FC<Props> = ({
             {fields.map((field, i) => (
               <li key={field.key} className="flex space-x-5">
                 <Input
-                  {...register(`learnInfos.${index}.cccc.${i}.notifyDate`)}
-                  placeholder="cccc"
+                  {...register(
+                    `learnInfos.${index}.notification.${i}.notificationText`
+                  )}
+                  placeholder="notification"
                   bg="white"
                 />
+                <Input
+                  {...register(
+                    `learnInfos.${index}.notification.${i}.notifyDate`
+                  )}
+                  placeholder="notification"
+                  bg="white"
+                />
+                <p className="min-w-10">日後</p>
                 <button
                   className="p-2 rounded-full bg-yellow-400"
-                  onClick={() => remove(index)}
+                  onClick={() => remove(i)}
                 >
                   <MinusIcon w={6} h={6} color={'white'} />
                 </button>

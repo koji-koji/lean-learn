@@ -8,7 +8,7 @@ import ScheduleInputPair, { ScheduleInput } from './ScheduleInputPair'
 export interface LearnInfo {
   firstName: string
   lastName: string
-  cccc: { notifyDate: string }[]
+  notification: { notifyDate: string; notificationText: string }[]
 }
 
 const SampleCardComponent: React.FC = () => {
