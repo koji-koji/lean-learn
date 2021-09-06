@@ -58,7 +58,7 @@ const LearnSettingCardComponent: React.FC = () => {
                     topRemove={remove}
                   />
                 </li>
-                <SeparateHr />
+                <SeparateHr key={field.key + index} />
               </>
             ))}
             <li className="flex justify-end">
@@ -66,7 +66,12 @@ const LearnSettingCardComponent: React.FC = () => {
                 className="p-2 rounded-full bg-yellow-400"
                 onClick={addLearnInfoss}
               >
-                <AddIcon w={6} h={6} color={'white'} />
+                <AddIcon
+                  w={6}
+                  h={6}
+                  color={'white'}
+                  data-testid="addLearnInfoIcon"
+                />
               </button>
             </li>
           </ul>

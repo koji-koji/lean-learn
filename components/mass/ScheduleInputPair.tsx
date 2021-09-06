@@ -107,6 +107,7 @@ const ScheduleInputPair: React.FC<Props> = ({
                 colorScheme="pink"
                 size="md"
                 onClick={() => topRemove(index)}
+                disabled
               >
                 削除
               </Button>
