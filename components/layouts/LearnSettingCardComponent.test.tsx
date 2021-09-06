@@ -25,13 +25,20 @@ describe('削除ボタン', () => {
       const deleteButton = screen.getByText(/削除/i)
       expect(deleteButton.closest('button')).toHaveAttribute('disabled')
     })
-    test('2つある時にクリックすると、1回目は削除できて、2つ目は削除できない。', () => {
+    test('2つある時にクリックすると、1回目は削除できて、2回目は削除できない。', () => {
       render(<LearnSettingCardComponent />)
       userEvent.click(screen.getByTestId('addLearnInfoIcon'))
       userEvent.click(screen.getByTestId('addLearnInfoIcon'))
+
       const deleteButtons = screen.getAllByText(/削除/i)
-      expect(deleteButtons[0].closest('button')).toHaveAttribute('disabled')
-      expect(deleteButtons[1].closest('button')).toHaveAttribute('disabled')
+      expect(deleteButtons[0].closest('button')).not.toHaveAttribute('disabled')
+      expect(deleteButtons[1].closest('button')).not.toHaveAttribute('disabled')
+
+      userEvent.click(deleteButtons[0].closest('button') as Element)
+      const afterDeleteClickButtons = screen.getAllByText(/削除/i)
+      expect(afterDeleteClickButtons[0].closest('button')).toHaveAttribute(
+        'disabled'
+      )
     })
   })
 })

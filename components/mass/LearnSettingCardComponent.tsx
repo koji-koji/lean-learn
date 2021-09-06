@@ -56,6 +56,7 @@ const LearnSettingCardComponent: React.FC = () => {
                     register={register}
                     control={control}
                     topRemove={remove}
+                    getValues={getValues}
                   />
                 </li>
                 <SeparateHr key={field.key + index} />

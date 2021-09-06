@@ -5,6 +5,7 @@ import {
   Control,
   useFieldArray,
   useForm,
+  UseFormGetValues,
   UseFormRegister,
 } from 'react-hook-form'
 import { LearnInfo } from './LearnSettingCardComponent'
@@ -23,6 +24,9 @@ interface Props {
     learnInfos: LearnInfo[]
   }>
   topRemove: (index: number) => void
+  getValues: UseFormGetValues<{
+    learnInfos: LearnInfo[]
+  }>
 }
 
 const ScheduleInputPair: React.FC<Props> = ({
@@ -30,6 +34,7 @@ const ScheduleInputPair: React.FC<Props> = ({
   register,
   control,
   topRemove,
+  getValues,
 }) => {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -39,6 +44,10 @@ const ScheduleInputPair: React.FC<Props> = ({
 
   const addLearnInfos = () => {
     append({ notifyDate: '' })
+  }
+
+  const isDisabled = (): boolean => {
+    return getValues().learnInfos.length <= 1
   }
 
   return (
@@ -107,11 +116,17 @@ const ScheduleInputPair: React.FC<Props> = ({
                 colorScheme="pink"
                 size="md"
                 onClick={() => topRemove(index)}
-                disabled
+                disabled={isDisabled()}
               >
                 削除
               </Button>
-              <Button colorScheme="teal" size="md">
+              <Button
+                colorScheme="teal"
+                size="md"
+                onClick={() => {
+                  debugger
+                }}
+              >
                 保存
               </Button>
             </div>
