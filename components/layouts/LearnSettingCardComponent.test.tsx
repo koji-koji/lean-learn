@@ -48,15 +48,59 @@ describe('学習項目追加・削除', () => {
 describe('復習日の追加・削除', () => {
   describe('追加アイコン', () => {
     test('クリックすると復習日が1つ増える。', () => {
-      console.log('test')
+      render(<LearnSettingCardComponent />)
+      const preReLearnInputArray = screen.queryAllByTestId('reLearnInputPair')
+      expect(preReLearnInputArray.length).toEqual(0)
+
+      userEvent.click(screen.getByTestId('addLearnInfoIcon'))
+      const firstReLearnInputArray = screen.getAllByTestId('reLearnInputPair')
+      expect(firstReLearnInputArray.length).toEqual(1)
+
+      userEvent.click(screen.getByTestId('reLearnPlusIcon'))
+      const secondReLearnInputArray = screen.getAllByTestId('reLearnInputPair')
+      expect(secondReLearnInputArray.length).toEqual(2)
     })
   })
   describe('削除アイコン', () => {
     test('1つのときにはdisabledになっている', () => {
-      console.log('test')
+      render(<LearnSettingCardComponent />)
+
+      const preReLearnInputArray = screen.queryAllByTestId('reLearnInputPair')
+      expect(preReLearnInputArray.length).toEqual(0)
+
+      userEvent.click(screen.getByTestId('addLearnInfoIcon'))
+      const reLearnInputPairs = screen.getAllByTestId('reLearnInputPair')
+      const deleteButton =
+        reLearnInputPairs[0].getElementsByTagName('button')[0]
+
+      expect(deleteButton).toHaveAttribute('disabled')
     })
     test('2つある時にクリックすると、1回目は削除できて、2回目は削除できない。', () => {
-      console.log('test')
+      render(<LearnSettingCardComponent />)
+
+      const preReLearnInputArray = screen.queryAllByTestId('reLearnInputPair')
+      expect(preReLearnInputArray.length).toEqual(0)
+
+      userEvent.click(screen.getByTestId('addLearnInfoIcon'))
+
+      // プラスアイコンをクリックした際にdisabledでなくなっていることのチェック。
+      userEvent.click(screen.getByTestId('reLearnPlusIcon'))
+      const reLearnInputPairs = screen.getAllByTestId('reLearnInputPair')
+      expect(reLearnInputPairs.length).toEqual(2)
+      expect(
+        reLearnInputPairs[0].getElementsByTagName('button')[0]
+      ).not.toHaveAttribute('disabled')
+      expect(
+        reLearnInputPairs[1].getElementsByTagName('button')[0]
+      ).not.toHaveAttribute('disabled')
+
+      // マイナスアイコンを押して、1つになったときにdisabledになっているように。
+      userEvent.click(reLearnInputPairs[0].getElementsByTagName('button')[0])
+      const afterReLearnInputPairs = screen.getAllByTestId('reLearnInputPair')
+      expect(afterReLearnInputPairs.length).toEqual(1)
+      expect(
+        afterReLearnInputPairs[0].getElementsByTagName('button')[0]
+      ).toHaveAttribute('disabled')
     })
   })
 })
