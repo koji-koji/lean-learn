@@ -74,7 +74,11 @@ const ScheduleInputPair: React.FC<Props> = ({
             <p>復習日</p>
             <ul className="space-y-5 pb-10">
               {fields.map((field, i) => (
-                <li key={field.key} className="flex space-x-5">
+                <li
+                  key={field.key}
+                  className="flex space-x-5"
+                  data-testid="reLearnInputPair"
+                >
                   <div className="w-28 flex">
                     <Input
                       {...register(
@@ -97,6 +101,8 @@ const ScheduleInputPair: React.FC<Props> = ({
                   <button
                     className="p-2 rounded-full bg-yellow-400"
                     onClick={() => remove(i)}
+                    data-testid="reLearnMinusIcon"
+                    disabled={fields.length <= 1}
                   >
                     <MinusIcon w={6} h={6} color={'white'} />
                   </button>
@@ -106,6 +112,7 @@ const ScheduleInputPair: React.FC<Props> = ({
                 <button
                   className="p-2 rounded-full bg-yellow-400"
                   onClick={addLearnInfos}
+                  data-testid="reLearnPlusIcon"
                 >
                   <AddIcon w={6} h={6} color={'white'} />
                 </button>
